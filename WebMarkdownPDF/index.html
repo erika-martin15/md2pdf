@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown to PDF | Converter</title>
+    <meta name="description" content="Convierte tus notas Markdown en PDFs mágicos.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Comfortaa:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <div class="logo">
+                🎀 MD<span>2PDF</span>
+            </div>
+            <div class="actions">
+                <button id="downloadBtn" class="btn-magic">
+                    <span>Exportar</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="editor-container">
+            <section class="pane">
+                <div class="pane-header">
+                    <span>Editor</span>
+                    <button id="clearBtn"
+                        style="background:none; border:none; color:var(--primary-pink); cursor:pointer; font-weight:700;">Limpiar
+                        🪄</button>
+                </div>
+                <div class="title-area">
+                    <label>Título del PDF</label>
+                    <input type="text" id="pdfTitle" placeholder="Ponle un nombre a tu PDF..." value="Mi Documento">
+                </div>
+                <textarea id="markdownInput" placeholder="# Escribe algo bonito aquí..."></textarea>
+            </section>
+
+            <section class="pane">
+                <div class="pane-header" style="background: var(--lavender); color: white;">
+                    <span>Vista Previa</span>
+                </div>
+                <div id="previewContent" class="markdown-body"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Hecho con amor y purpurina por Erika ✨ 2026</p>
+        </footer>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
