@@ -122,17 +122,20 @@ function esMagia() {
         const originalContent = downloadBtn.innerHTML;
         downloadBtn.innerHTML = '<span>Creando PDF...</span>';
 
-        // Exportar.
-        html2pdf().set(opt).from(previewContent).toPdf().get('pdf').then((pdf) => {
-            previewContent.classList.remove('pdf-export-body');
-            downloadBtn.disabled = false;
-            downloadBtn.innerHTML = originalContent;
-        }).save().catch(err => {
-            console.error('Error al exportar:', err);
-            alert('¡Oh no! Hubo un error al exportar. 🥺');
-            previewContent.classList.remove('pdf-export-body');
-            downloadBtn.disabled = false;
-            downloadBtn.innerHTML = originalContent;
-        });
+        // Pequeño retardo para asegurar que la clase se aplique y el DOM se actualice
+        setTimeout(() => {
+            // Exportar.
+            html2pdf().set(opt).from(previewContent).toPdf().get('pdf').then((pdf) => {
+                previewContent.classList.remove('pdf-export-body');
+                downloadBtn.disabled = false;
+                downloadBtn.innerHTML = originalContent;
+            }).save().catch(err => {
+                console.error('Error al exportar:', err);
+                alert('¡Oh no! Hubo un error al exportar. 🥺');
+                previewContent.classList.remove('pdf-export-body');
+                downloadBtn.disabled = false;
+                downloadBtn.innerHTML = originalContent;
+            });
+        }, 100);
     });
 });
