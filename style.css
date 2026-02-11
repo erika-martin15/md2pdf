@@ -41,15 +41,6 @@ body::before {
     opacity: 0.5;
 }
 
-body::after {
-    content: "🎀";
-    position: absolute;
-    bottom: 50px;
-    right: 10%;
-    font-size: 24px;
-    opacity: 0.5;
-}
-
 .main-container {
     width: 96vw;
     height: 92vh;
@@ -61,6 +52,8 @@ body::after {
     flex-direction: column;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
     animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    /* Fixes potential gaps in rounded corners */
 }
 
 @keyframes bounceIn {
@@ -81,7 +74,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px dashed var(--secondary-pink);
+    /* border-bottom removed to clean up the design */
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .logo {
@@ -122,11 +116,18 @@ header {
     transform: none;
 }
 
+.actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
 .editor-container {
     flex: 1;
     display: flex;
     overflow: hidden;
-    padding: 25px;
+    padding: 0 25px 25px 25px;
+    /* Removed top padding to glue to header */
     gap: 25px;
 }
 
@@ -148,7 +149,7 @@ header {
 }
 
 .pane-header {
-    padding: 15px 25px;
+    padding: 12px 25px;
     background: var(--bg-color);
     border-bottom: 1px solid var(--secondary-pink);
     display: flex;
@@ -156,6 +157,7 @@ header {
     align-items: center;
     font-weight: 700;
     color: var(--primary-pink);
+    min-height: 50px;
 }
 
 .title-area {
@@ -205,7 +207,8 @@ header {
 
 #previewContent {
     flex: 1;
-    padding: 40px;
+    padding: 25px 35px;
+    /* Reduced from 40px */
     overflow-y: auto;
     background: white;
 }
@@ -222,9 +225,9 @@ header {
     color: var(--primary-pink);
     border-bottom: 2px solid var(--lavender);
     padding-bottom: 10px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    /* More space after title */
+    margin-top: 0;
+    /* Removed top margin to fix top gap */
+    margin-bottom: 25px;
     font-size: 2.2em;
 }
 
@@ -252,8 +255,10 @@ header {
 .markdown-body blockquote {
     border-left: 6px solid var(--lavender);
     background: var(--bg-color);
-    padding: 20px 25px;
-    margin: 25px 0;
+    padding: 12px 20px;
+    /* Reduced from 20px 25px */
+    margin: 15px 0;
+    /* Reduced from 25px 0 */
     border-radius: 0 20px 20px 0;
     font-style: italic;
     color: #7d6b72;

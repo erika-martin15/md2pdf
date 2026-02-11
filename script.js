@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const pdfTitleInput = document.getElementById('pdfTitle');
     const previewContent = document.getElementById('previewContent');
     const downloadBtn = document.getElementById('downloadBtn');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const mdUploadInput = document.getElementById('mdUpload');
     const clearBtn = document.getElementById('clearBtn');
 
     // Contenido predeterminado.
@@ -34,7 +36,8 @@ function esMagia() {
 \`\`\`
 `;
 
-    if (markdownInput.value === '') {
+    // Cargar contenido inicial si está vacío
+    if (markdownInput.value.trim() === '') {
         markdownInput.value = sampleMarkdown;
     }
 
@@ -47,7 +50,7 @@ function esMagia() {
     // Render inicial.
     updatePreview();
 
-    // Preview.
+    // Preview en tiempo real.
     markdownInput.addEventListener('input', updatePreview);
 
     // Botón de limpiar.
@@ -56,6 +59,35 @@ function esMagia() {
             markdownInput.value = '';
             updatePreview();
         }
+    });
+
+    // Botón de subir (dispara el input oculto)
+    uploadBtn.addEventListener('click', () => {
+        mdUploadInput.click();
+    });
+
+    // Leer archivo .md
+    mdUploadInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.name.endsWith('.md')) {
+            alert('Por favor, selecciona un archivo .md 🥺');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const content = event.target.result;
+            markdownInput.value = content;
+
+            // Actualizar título basándose en el nombre del archivo
+            const fileNameNoExt = file.name.replace(/\.[^/.]+$/, "");
+            pdfTitleInput.value = fileNameNoExt.charAt(0).toUpperCase() + fileNameNoExt.slice(1);
+
+            updatePreview();
+        };
+        reader.readAsText(file);
     });
 
     // Exportar PDF.
@@ -67,18 +99,20 @@ function esMagia() {
         previewContent.classList.add('pdf-export-body');
 
         const opt = {
-            margin: 10,
+            margin: [15, 15, 15, 15],
             filename: filename,
-            image: { type: 'jpeg', quality: 0.98 },
+            image: { type: 'jpeg', quality: 1.0 },
             html2canvas: {
-                scale: 3,
+                scale: 2,
                 useCORS: true,
-                letterRendering: true
+                letterRendering: true,
+                backgroundColor: '#ffffff'
             },
             jsPDF: {
                 unit: 'mm',
                 format: 'a4',
-                orientation: 'portrait'
+                orientation: 'portrait',
+                compress: true
             },
             pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         };
@@ -90,7 +124,6 @@ function esMagia() {
 
         // Exportar.
         html2pdf().set(opt).from(previewContent).toPdf().get('pdf').then((pdf) => {
-            // En caso de éxito.
             previewContent.classList.remove('pdf-export-body');
             downloadBtn.disabled = false;
             downloadBtn.innerHTML = originalContent;

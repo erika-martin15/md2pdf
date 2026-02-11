@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markdown to PDF | Converter</title>
     <meta name="description" content="Convierte tus notas Markdown en PDFs mágicos.">
+    <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,9 +27,14 @@
     <div class="main-container">
         <header>
             <div class="logo">
-                🎀 MD<span>2PDF</span>
+                MD<span>2PDF</span>
             </div>
             <div class="actions">
+                <input type="file" id="mdUpload" accept=".md" style="display: none;">
+                <button id="uploadBtn" class="btn-magic"
+                    style="background: linear-gradient(135deg, var(--lavender) 0%, var(--secondary-pink) 100%);">
+                    <span>Subir .md</span>
+                </button>
                 <button id="downloadBtn" class="btn-magic">
                     <span>Exportar</span>
                 </button>
